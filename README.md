@@ -1,0 +1,1 @@
+This is an Instagram clone made with the MERN stack, inluding Redux. Photos are saved in an S3 bucket.
