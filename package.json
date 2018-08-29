@@ -1,0 +1,38 @@
+{
+  "name": "insta-cool",
+  "version": "1.0.0",
+  "description": "This is an Instagram clone made with the MERN stack, inluding Redux. Photos are saved in an S3 bucket.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "client-install": "npm intall --prefix client",
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ctharp11/insta-cool.git"
+  },
+  "engines": {
+    "node": "8.11.4"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ctharp11/insta-cool/issues"
+  },
+  "homepage": "https://github.com/Ctharp11/insta-cool#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "concurrently": "^4.0.1",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "mongoose": "^5.2.10"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.4"
+  }
+}
