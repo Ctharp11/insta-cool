@@ -1,19 +1,28 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { Route, Switch } from 'react-router';
+import { Container } from 'reactstrap';
+
+import Main from './components/Main';
+import NavbarCom from './components/Navbar';
+import Account from './components/Account';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 class App extends Component {
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      <div className="app">
+        <NavbarCom />
+        <Container>
+          <Switch>
+            <Route path="/" component={Main} />
+            <Route path="/account" component={Account} />
+            <Route path="/photo/:id" component={Main} />
+          </Switch>
+        </Container>
+      </div>  
     );
   }
 }
