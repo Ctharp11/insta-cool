@@ -52,5 +52,44 @@
     height: 1.5rem;
 }
 .single {
-    
+    display: flex;
+    padding-bottom: 10rem;
+}
+.single-left {
+    width:60%;
+}
+.single hr {
+    width: 60%;
+    margin-left: 0;
+}
+.single-right {
+    width:35%;
+}
+.single-image {
+    width: 90%;
+}
+.single-user-image {
+    height: 4rem;
+    width: 4rem;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+}
+.single-like-size {
+    height: 2rem;
+}
+.single-like-size:hover {
+    cursor: pointer;
+}
+.single-username {
+    font-weight: 600;
+}
+.single-comment-outer {
+    overflow: auto;
+    height: 17rem;
+    padding-right: 5px;
+}
+.single-commentsec {
+    margin: 3px;
 }

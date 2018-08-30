@@ -10,8 +10,7 @@ import {
   Form, 
   FormGroup, 
   Label, 
-  Input, 
-  FormText
+  Input
 } from 'reactstrap';
 import { withRouter } from 'react-router'
 
