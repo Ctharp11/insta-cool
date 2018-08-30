@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { Container } from 'reactstrap';
 class PhotoGrid extends Component {
     constructor() {
@@ -13,6 +14,7 @@ class PhotoGrid extends Component {
         let randomPhoto = photoArray[Math.floor(Math.random() * photoArray.length)];
         return(
             <div className="post"> 
+                <Link to="/p/:id">
                 <img className="post-img" src={`/img/${randomPhoto}`} alt="boat" />
                 <Container>
                     <div className="post-description"> Tacos are good. Pizza is good. I like my friend. This may be an orange, or maybe you're orange. #hash #orange </div>
@@ -27,6 +29,7 @@ class PhotoGrid extends Component {
                         </span>
                     </div>
                 </Container>
+                </Link>
             </div> 
         )
     }
