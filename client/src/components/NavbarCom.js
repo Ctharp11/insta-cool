@@ -34,6 +34,9 @@ class NavbarCom extends Component {
                         <NavItem>
                          <NavLink href="/account"> Your Account </NavLink>
                         </NavItem>
+                        <NavItem>
+                         <NavLink onClick={this.props.toggle}> Post </NavLink>
+                        </NavItem>
                     </Nav>
                     </Collapse>
                 </Container>

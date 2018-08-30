@@ -3,12 +3,12 @@ import PhotoGrid from './PhotoGrid';
 
 class Main extends Component {
     render() {
+        const posts = this.props.data.posts
         return(
             <div className="main"> 
-                <PhotoGrid />
-                <PhotoGrid />
-                <PhotoGrid />
-                <PhotoGrid />
+                {
+                    posts.map(post => <PhotoGrid key={post._id} {...this.props} {...post} />)
+                }
             </div>
         )
     }

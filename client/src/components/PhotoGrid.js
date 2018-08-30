@@ -10,22 +10,21 @@ class PhotoGrid extends Component {
         }
     }
     render() {
-        const photoArray = ['boat.jpg', 'citrus.jpg', 'dog.jpg', 'friends.jpeg', 'jelly.jpg', 'leaf.jpg', 'mountain.jpg'];
-        let randomPhoto = photoArray[Math.floor(Math.random() * photoArray.length)];
+        const item = this.props
         return(
             <div className="post"> 
-                <Link to="/p/:id">
-                <img className="post-img" src={`/img/${randomPhoto}`} alt="boat" />
+                <Link to={`/p/${item._id}`}>
+                <img className="post-img" src={`/img/${item.image}`} alt="wooo" />
                 <Container>
-                    <div className="post-description"> Tacos are good. Pizza is good. I like my friend. This may be an orange, or maybe you're orange. #hash #orange </div>
+                    <div className="post-description"> {item.description} </div>
                     <div className="post-bottom"> 
                         <span className="post-btn post-like"> 
                             <img className="post-like-size" src="/img/heart.png" alt="heart" /> 
-                            <span> {this.state.hearts} </span>
+                            <span> {item.hearts} </span>
                         </span>
                         <span className="post-btn post-comments"> 
                             <img className="post-bubble" src="/img/bubble.png" alt="comments" /> 
-                            <span> {this.state.comments} </span>
+                            <span> {item.comments} </span>
                         </span>
                     </div>
                 </Container>
