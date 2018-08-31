@@ -1,16 +1,26 @@
-import { createStore, compose } from 'redux';
-import { syncHistoryWithStore } from 'react-router-redux';
-import { browserHistory } from 'react-router';
+import { applyMiddleware, compose, createStore } from 'redux';
+import { connectRouter, routerMiddleware } from 'connected-react-router';
+import { createBrowserHistory } from 'history';
 
-import rootReducer from './reducers.index';
-import data from './data.json';
+import rootReducer from './reducers/index';
+import posts from './data.json';
+import comments from './data.json';
+
+const history = createBrowserHistory();
+const middleware = routerMiddleware(history);
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 //create object for default data
 const defaultState = {
-    data
+    posts,
+    comments
 }
 
-const store = createStore(rootReducer, defaultState);
-export const history = syncHistoryWithStore(browserHistory, store);
+const store = createStore(
+    connectRouter(history)(rootReducer),
+    defaultState,
+    composeEnhancers(applyMiddleware(middleware))
+  );
 
-export default store;
+export { history };
+export default store; 

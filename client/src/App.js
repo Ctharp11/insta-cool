@@ -12,13 +12,11 @@ import {
   Label, 
   Input
 } from 'reactstrap';
-import { withRouter } from 'react-router'
 
 import Main from './components/Main';
 import NavbarCom from './components/NavbarCom';
 import Account from './components/Account';
 import Single from './components/Single';
-import data from './data.json';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -27,7 +25,6 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      data,
       modal: false,
       file: '',
       text: ''
@@ -54,17 +51,14 @@ class App extends Component {
     console.log(this.state);
   }
   render() {
-    const allProps = {
-      data: this.state.data,
-    }
     return (
       <div className="app">
         <NavbarCom toggle={this.toggle} />
         <Container>
           <Switch>
-            <Route exact path="/" render={() => this.passProps(Main, allProps)} />
+            <Route exact path="/" render={() => this.passProps(Main, {...this.props})} />
             <Route exact path="/account" component={Account} />
-            <Route exact path={"/p/:id"} render={() => this.passProps(Single, allProps)} />
+            <Route exact path={"/p/:id"} render={() => this.passProps(Single, {...this.props})} />
           </Switch>
         </Container>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
@@ -90,4 +84,4 @@ class App extends Component {
   }
 }
 
-export default withRouter(App);
+export default App;

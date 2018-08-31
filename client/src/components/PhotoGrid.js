@@ -11,6 +11,7 @@ class PhotoGrid extends Component {
     }
     render() {
         const item = this.props
+        console.log(item)
         return(
             <div className="post"> 
                 <Link to={`/p/${item._id}`}>

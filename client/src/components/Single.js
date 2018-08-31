@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import data from '../data.json';
 import { Form, FormGroup, Input } from 'reactstrap';
 
 class Single extends Component {
@@ -13,8 +12,8 @@ class Single extends Component {
         }
     }
     componentDidMount() {
-        this.setState({ comments: data.comments })
-        this.setState({ hearts: data.posts[0].hearts});
+        this.setState({ comments: this.props.props.comments })
+        this.setState({ hearts: this.props.props.posts[0].hearts});
     }
     heart = () => {
         this.setState({
@@ -39,7 +38,8 @@ class Single extends Component {
         this.setState({ comments: newStateArray});
     }
     render() {
-        const item = data.posts[0];
+        const item = this.props.props.posts[0];
+        console.log(this.props.props.posts[0])
         return(
             <div className="single"> 
                 <div className="single-left"> 
