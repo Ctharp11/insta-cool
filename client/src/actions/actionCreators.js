@@ -1,15 +1,16 @@
 import { 
-    GET_ITEM, 
-    GET_ITEMS, 
-    ADD_ITEMS, 
-    DELETE_ITEMS, 
-    ITEMS_LOADING,
     INCREMENT_LIKES,
-    DECREMENT_LIKES,
     POST_COMMENT,
-    DELETE_COMMENT,
-    EDIT_COMMENT
+    ADD_ITEMS
 } from './types';
+
+// GET_ITEM, 
+// GET_ITEMS, 
+// DELETE_ITEMS, 
+// ITEMS_LOADING,
+// DECREMENT_LIKES,
+//  DELETE_COMMENT,
+//     EDIT_COMMENT
 
 export function increment(id) {
     return {
@@ -24,5 +25,13 @@ export function addComment(postId, author, comment) {
         postId,
         author,
         comment
+    }
+}
+
+export function createPost(author, post) {
+    return {
+        type: ADD_ITEMS,
+        author,
+        post
     }
 }

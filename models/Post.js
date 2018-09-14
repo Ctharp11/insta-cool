@@ -2,13 +2,22 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 const postSchema = new mongoose.Schema({
-    post: {
+    text: {
+        type: String
+    },
+    file: {
         type: String,
         required: true
+    },
+    file_id: {
+        type: String
     },
     date: {
         type: Date,
         default: Date.now()
+    },
+    likes: {
+        type: Number
     }
 });
 

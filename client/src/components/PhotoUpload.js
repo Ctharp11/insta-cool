@@ -1,50 +1,58 @@
 import React, { Component } from 'react';
-import S3FileUpload from 'react-s3';
+import { Image, CloudinaryContext, Transformation } from 'cloudinary-react';
 import keys from '../keys';
- 
-//Optional Import
-// import { uploadFile } from 'react-s3';
- 
-const config = {
-    bucketName: 'insta-cool',
-    dirName: 'photos', /* optional */
-    region: 'us-east-1',
-    accessKeyId: keys.accessKeyId,
-    secretAccessKey: keys.secretAccessKey
-}
+import { 
+  Button,
+  Modal, 
+  ModalHeader, 
+  ModalBody, 
+  ModalFooter,
+  Form, 
+  FormGroup, 
+  Label, 
+  Input
+} from 'reactstrap';
 
 class PhotoUpload extends Component {
     constructor() {
         super();
         this.state = {
-            loading: false,
-            photo: ''
+            loading: false
         }
     }
 
     upload = (e) => {
-        const file = e.target.files[0];
-        this.setState({loading: true});
-        S3FileUpload.uploadFile(file, config)
-        .then(data => {
-            if (data) {
-                this.setState({
-                    loading: false,
-                    photo: data.location
-                })
-            }
-        })
-        .catch(err => console.error(err))
+       
     }
 
     render(){
         return (
             <div> 
                 <h3> Upload a Photo </h3>
-                <input 
-                    type="file"
-                    onChange={this.upload}
-                      />
+                <Modal isOpen={this.props.modal} toggle={this.props.toggle}>
+                  <ModalHeader toggle={this.props.toggle}>Post</ModalHeader>
+                    <Form onSubmit={this.handleSubmit} encType="multipart/form-data">
+                        <ModalBody>
+                        <FormGroup>
+                            <Label for="exampleFile">File</Label>
+                            <Input type="file" name="file" id="exampleFile" onChange={this.handleFile} />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for="exampleText">Description</Label>
+                            <Input type="textarea" name="text" id="exampleText" onChange={this.handleChange} />
+                            <CloudinaryContext cloudName="demo">
+                            <Image publicId="sample">
+                                <Transformation width="200" crop="scale" angle="10"/>
+                            </Image>
+                            </CloudinaryContext>
+                        </FormGroup>
+                        </ModalBody>
+                        <ModalFooter>
+                        <Button type="submit" color="primary" onClick={this.props.toggle}>Submit</Button>
+                        </ModalFooter>
+                    </Form>
+                </Modal>
+                   
                 {this.state.loading && (<div> Loading... </div>)}
                 {this.state.photo
                     &&
