@@ -54,6 +54,14 @@ class App extends Component {
     
   }
   render() {
+
+    if (this.state.posts.length === 0) {
+      return null;
+    }
+    const allProps = {
+      props: this.props,
+      posts: this.state.posts
+    }
     return (
       <div className="app">
         <NavbarCom toggle={this.toggle} />
@@ -73,9 +81,9 @@ class App extends Component {
        
         <Container>
           <Switch>
-            <Route exact path="/" render={() => this.passProps(Main, {...this.props})} />
+            <Route exact path="/" render={() => this.passProps(Main, {...allProps})} />
             <Route exact path="/account" component={Account} />
-            <Route exact path={"/p/:id"} render={() => this.passProps(Single, {...this.props})} />
+            <Route exact path={"/p/:id"} render={() => this.passProps(Single, {...allProps})} />
           </Switch>
           {this.state.modal &&
             <PhotoUpload 

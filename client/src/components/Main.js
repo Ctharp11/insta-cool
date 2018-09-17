@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-// import PhotoGrid from './PhotoGrid';
+import PhotoGrid from './PhotoGrid';
 
 class Main extends Component {
     render() {
-        // const posts = this.props
+        const posts = this.props.posts
         return(
             <div className="main"> 
                 {
-                    // posts.map(post => <PhotoGrid key={post._id} {...post} />)
+                    posts.map(post => <PhotoGrid key={post._id} {...post} />)
                 }
             </div>
         )
