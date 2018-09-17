@@ -1,27 +1,13 @@
 const Post = require('../models/Post');
 const cloudinary = require('cloudinary');
-const multer  = require('multer')
-const storage = multer.diskStorage({
-        destination: function (req, file, cb) {
-            console.log(file)
-          cb(null, 'uploads')
-        },
-    fileFilter: (req, file, next) => {
-        console.log(file)
-        const isPhoto = file.mimetype.startsWith('image/');
-        if (isPhoto) {
-            next(null, true);
-        } else {
-            next({message: 'That file type isn\'t allowed!'}, false);
-        }
-    }
-})
+const multer  = require('multer');
+var upload = multer({ dest: 'uploads' });
 
-require('dotenv').config();
+require('dotenv').config({})
 cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
-    api_key: process.env.API_KEY,
-    api_secret: process.env.SECRET
+    api_key: process.env.CLOUD_API_KEY,
+    api_secret: process.env.CLOUD_SECRET
 });
 
 exports.getPosts = async (req, res) => {
@@ -34,33 +20,34 @@ exports.getPosts = async (req, res) => {
     }
 }
 
-exports.upload = multer({storage: storage}).single('photo');
+exports.type = upload.single('file');
+
+exports.uppic = (req, res, next) => {
+    try {
+        res.status(200).json({status: "200"});
+        next();
+    }
+    catch(err) {
+        console.log(err)
+        res.status(500).json({error: "Internal server error"});
+    }
+}
 
 exports.cloudinary = (req, res) => {
-      console.log('files', req.files);
-      console.log('files', req.file);
-      try {
-         res.status(200).json({status: "200"});
-      }
-      catch(err) {
-          console.log(err)
-          res.status(500).json({error: "Internal server error"});
-      }
-      
-      
-    //   cloudinary.uploader.upload(req.files.image.path, function(result) {
-    //     // Create a post model
-    //     // by assembling all data as object
-    //     // and passing to Model instance
-    //     var post = new Post({
-    //         text: req.body.text,
-    //         // Store the URL in a DB for future use
-    //         file: result.url,
-    //         file_id: result.public_id
-    //     });
-    //     // Persist by saving
-    //     post.save()
-    //     .then(res => console.log(res))
-    //     .catch(err => console.log(err));
-    // });
+    console.log('files', req.file.path);
+    console.log('body', req.body) 
+    cloudinary.v2.uploader.upload(`./${req.file.path}`, function(err, result) {
+        if (err) console.log(err)
+        console.log(result)
+        // var post = new Post({
+        //     text: req.body.text,
+        //     // Store the URL in a DB for future use
+        //     file: result.url,
+        //     file_id: result.public_id
+        // });
+        // // Persist by saving
+        // post.save()
+        // .then(res => console.log(res))
+        // .catch(err => console.log(err));
+    });
 }

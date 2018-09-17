@@ -9,7 +9,6 @@ import {
   ModalFooter,
   Form, 
   FormGroup, 
-  Label, 
   Input
 } from 'reactstrap';
 
@@ -23,11 +22,6 @@ class PhotoUpload extends Component {
         }
     }
 
-    handleFile = (e) => {
-        const { files } = e.target;
-        this.setState({ file: files });
-    }
-
     handleChange = (e) => {
         const { name, value } = e.target;
         this.setState({ [name]: value });
@@ -35,7 +29,6 @@ class PhotoUpload extends Component {
 
     dropZoneHandler = (accepted, rejected) => {
         this.setState( {file: accepted} )
-
     }
 
     handleSubmit = (e) => {
@@ -44,9 +37,9 @@ class PhotoUpload extends Component {
             text: this.state.text,
             likes: 0
         }
-        post(bodyInfo, this.state.file)
-        .then(res => console.log(res))
-        .catch(err => console.log(err))
+        post(this.state.file, bodyInfo)
+        .then(res => res)
+        .catch(err => err)
         this.props.toggle()
     }
 
@@ -85,10 +78,6 @@ class PhotoUpload extends Component {
                 </Modal>
                    
                 {this.state.loading && (<div> Loading... </div>)}
-                {this.state.photo
-                    &&
-                    <img src={this.state.photo} alt="insta-cool" />
-                }
             </div>
         )
     }
