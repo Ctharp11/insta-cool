@@ -16,4 +16,6 @@ router.post('/api',
     postController.cloudinary
 );
 
+router.get('/api/:id', postController.getSingle);
+
 module.exports = router;

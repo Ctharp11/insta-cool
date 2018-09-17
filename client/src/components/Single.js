@@ -1,19 +1,34 @@
 import React, { Component } from 'react';
 import { Form, FormGroup, Input } from 'reactstrap';
+import { getSinglePhoto } from '../services/utils';
 
 class Single extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+        const match = props.props.location.pathname;
         this.state = {
+            match: match.slice(3, match.length ) ? match.slice(3, match.length ) : null,
             hearts: 0,
             comments: [],
             comment: '',
-            userLiked: false
+            userLiked: false,
+            data: ''
         }
     }
     componentDidMount() {
-        // this.setState({ comments: this.props.props.comments })
-        // this.setState({ hearts: this.props.props.posts[0].hearts});
+        if (this.state.match) {
+            getSinglePhoto(this.state.match)
+            .then(res => {
+                console.log(res.data)
+                this.setState({ data: res.data })
+            })
+            // .then(response => {
+            //     response.json()
+            //     .then(data => ({data: data}))
+            //     .then(res => console.log(res))
+            // })
+            // .catch(err => console.log(err))
+        }
     }
     // heart = () => {
     //     this.setState({
@@ -27,6 +42,10 @@ class Single extends Component {
     //     }
         
     // }
+
+    handleClick = () => {
+        console.log('clicked')
+    }
     handleChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
     }
@@ -38,24 +57,26 @@ class Single extends Component {
         this.setState({ comments: newStateArray});
     }
     render() {
-        // const item = this.props.props.posts[0];
-        console.log()
+        if (!this.state.data) {
+            return null;
+        }
+        const data = this.state.data[0];
         return(
             <div className="single"> 
                 <div className="single-left"> 
-                    <img className="single-image" src={``} alt="woo" />
+                    <img className="single-image" src={data.file} alt={data.file_id} />
                 </div>
                 <div className="single-right">
                     <div>
                         <img className="single-user-image" src="/img/boat.jpg" alt="user" />
                         <span className="single-username"> Cameron Tharp </span>
                     </div>
-                    <div>  </div>
+                    <div> {data.text}  </div>
                     <hr />
                     <Form>
                         <FormGroup>
-                         <img className="single-like-size" name="heart" src={this.state.userLiked ? "/img/heart.png" : "/img/heart_empty.png"} alt="heart" onClick={this.props.increment.bind(null, this.props.location.key)} /> 
-                         <span> {} likes</span>
+                         <img className="single-like-size" name="heart" src={this.state.userLiked ? "/img/heart.png" : "/img/heart_empty.png"} alt="heart" onClick={this.handleClick} /> 
+                         <span> {data.likes} likes</span>
                         </FormGroup>
                     </Form>
                     <Form onSubmit={this.handleSumbit}>
@@ -71,16 +92,5 @@ class Single extends Component {
         )
     }
 }
-
-// {
-//     this.state.comments.map((comment, index) => {
-//         return (
-//           <div key={index} className="single-commentsec">
-//             <span className="single-username"> {comment.username} </span> 
-//             <span> {comment.comment} </span>
-//           </div>
-//         )
-//     })
-// }
 
 export default Single;

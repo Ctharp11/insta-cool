@@ -46,7 +46,12 @@ exports.cloudinary = (req, res) => {
             file_id: result.public_id
         });
         post.save()
-        .then(res => console.log(res))
-        .catch(err => console.log(err));
+        .then(res => res)
+        .catch(err => err);
     });
+}
+
+exports.getSingle = async (req, res) => {
+    const single = await Post.find({ _id: req.params.id})
+    res.json(single)
 }

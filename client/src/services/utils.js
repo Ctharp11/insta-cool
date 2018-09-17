@@ -15,3 +15,7 @@ export const post = (file, bodyInfo) => {
           }
     })
 }
+
+export const getSinglePhoto = (id) => {
+    return axios.get(`/api/${id}`)
+}
