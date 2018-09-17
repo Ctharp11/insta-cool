@@ -35,19 +35,18 @@ exports.uppic = (req, res, next) => {
 
 exports.cloudinary = (req, res) => {
     console.log('files', req.file.path);
-    console.log('body', req.body) 
+    const obj = JSON.parse(req.body.bodyInfo)
     cloudinary.v2.uploader.upload(`./${req.file.path}`, function(err, result) {
         if (err) console.log(err)
         console.log(result)
-        // var post = new Post({
-        //     text: req.body.text,
-        //     // Store the URL in a DB for future use
-        //     file: result.url,
-        //     file_id: result.public_id
-        // });
-        // // Persist by saving
-        // post.save()
-        // .then(res => console.log(res))
-        // .catch(err => console.log(err));
+        var post = new Post({
+            text: obj.text,
+            likes: obj.likes,
+            file: result.url,
+            file_id: result.public_id
+        });
+        post.save()
+        .then(res => console.log(res))
+        .catch(err => console.log(err));
     });
 }

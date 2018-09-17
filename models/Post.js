@@ -7,7 +7,7 @@ const postSchema = new mongoose.Schema({
     },
     file: {
         type: String,
-        required: true
+        required: "Please provide a photo!"
     },
     file_id: {
         type: String

@@ -34,7 +34,7 @@ class PhotoUpload extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         const bodyInfo = {
-            text: this.state.text,
+            text: this.state.text.trim(),
             likes: 0
         }
         post(this.state.file, bodyInfo)
