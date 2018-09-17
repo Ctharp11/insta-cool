@@ -79,7 +79,7 @@ class PhotoUpload extends Component {
                             }
                         </ModalBody>
                         <ModalFooter>
-                        <Button type="submit" color="primary">Submit</Button>
+                        <Button type="submit" className="button">Submit</Button>
                         </ModalFooter>
                     </Form>
                 </Modal>
