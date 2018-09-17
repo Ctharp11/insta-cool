@@ -1,11 +1,18 @@
 const express = require('express');
 const router = express.Router();
 const postController = require('../controllers/postController');
-const multipart = require('connect-multiparty');
-const multipartMiddleware = multipart();
 
-router.get('/', postController.getPosts);
+router.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 
-router.post('/', multipartMiddleware, postController.postPost);
+router.get('/api', postController.getPosts);
+
+router.post('/api', 
+    postController.upload,
+    postController.cloudinary
+);
 
 module.exports = router;

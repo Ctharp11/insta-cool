@@ -15,7 +15,7 @@ mongoose.connect(process.env.DATABASE, {useNewUrlParser: true})
 
 const port = process.env.PORT || 3002;
 
-app.use('/api', routes);
+app.use('/', routes);
 
 app.listen(port, () => {
     console.log(`Connected at port ${port}`)

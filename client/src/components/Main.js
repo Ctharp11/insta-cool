@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PhotoGrid from './PhotoGrid';
+// import PhotoGrid from './PhotoGrid';
 
 class Main extends Component {
     render() {

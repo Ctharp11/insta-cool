@@ -1,6 +1,36 @@
 .app {
     background-color: #fafafa;
 }
+.dropzone {
+    height: 3rem;
+    border: 2px solid #007bff;
+    width: 90%;
+    margin: 0 auto;
+    border-radius: .5rem;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+.dropzone:hover {
+    cursor: pointer;
+}
+.dropzone-text {
+    font-size: 1.2rem;
+}
+.preview {
+    display: flex;
+}
+.preview-photo {
+    height: 7rem;
+    width: 7rem;
+    object-fit: cover;
+}
+.preview-text textarea {
+    margin-left: 1rem;
+    height: 7rem;
+    width: 21rem;
+    border-radius: 0;
+}
 .nav{
     height:6rem;
 }
