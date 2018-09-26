@@ -36,12 +36,14 @@ exports.uppic = (req, res, next) => {
 exports.cloudinary = (req, res) => {
     console.log('files', req.file.path);
     const obj = JSON.parse(req.body.bodyInfo)
+    console.log('obj', obj)
     cloudinary.v2.uploader.upload(`./${req.file.path}`, function(err, result) {
         if (err) console.log(err)
         console.log(result)
         var post = new Post({
             text: obj.text,
             likes: obj.likes,
+            author: obj.author,
             file: result.url,
             file_id: result.public_id
         });

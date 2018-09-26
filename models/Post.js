@@ -17,7 +17,11 @@ const postSchema = new mongoose.Schema({
         default: Date.now()
     },
     likes: {
-        type: Number
+        type: Number,
+        default: 0
+    },
+    author: {
+        type: String
     }
 });
 

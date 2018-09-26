@@ -1,15 +1,14 @@
 {
   "name": "insta-cool",
   "version": "1.0.0",
-  "description": "This is an Instagram clone made with the MERN stack, inluding Redux. Photos are saved in an S3 bucket.",
+  "description": "This is an Instagram clone made with the MERN stack. Photos are saved in Cloudinary.",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "client-install": "npm intall --prefix client",
-    "start": "node server.js",
-    "server": "nodemon server.js",
-    "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "start": "NODE_ENV=production node server.js",
+    "server": "NODE_ENV=development nodemon server.js",
+    "client": "npm run start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "repository": {
     "type": "git",
@@ -26,14 +25,19 @@
   },
   "homepage": "https://github.com/Ctharp11/insta-cool#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "cloudinary": "^1.11.0",
     "concurrently": "^4.0.1",
     "connect-multiparty": "^2.1.1",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
+    "jsonwebtoken": "^8.3.0",
     "mongoose": "^5.2.10",
-    "multer": "^1.3.1"
+    "multer": "^1.3.1",
+    "passport": "^0.4.0",
+    "passport-facebook-token": "^3.3.0",
+    "passport-jwt": "^4.0.0"
   },
   "devDependencies": {
     "nodemon": "^1.18.4"

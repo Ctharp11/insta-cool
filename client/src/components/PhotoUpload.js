@@ -35,15 +35,21 @@ class PhotoUpload extends Component {
         e.preventDefault();
         const bodyInfo = {
             text: this.state.text.trim(),
-            likes: 0
+            likes: 0,
+            author: this.props.userInfo.fb_id
         }
         post(this.state.file, bodyInfo)
-        .then(res => res)
+        .then(res => {
+            this.props.updateStatePost()
+            return res
+        })
         .catch(err => err)
         this.props.toggle()
+        // this.props.browser.history.push('/');
     }
 
     render(){
+        console.log(this.props.browser)
         return (
             <div> 
                 <Modal isOpen={this.props.modal} toggle={this.props.toggle}>
