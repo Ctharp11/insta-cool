@@ -26,6 +26,14 @@ export const getSinglePhoto = (id) => {
 export const getUserPosts = (id) => {
     return app.get(`/api/posts/${id}`);
 }
+export const likePost = (id, sendLike, userId) => {
+    const postData = {
+        id,
+        sendLike,
+        userId
+    }
+    return app.post(`api/liked/${id}`, postData)
+}
 
 //facebook login
 export const postUser = (token) => {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Form, FormGroup, Input } from 'reactstrap';
-import { getSinglePhoto } from '../services/utils';
+import { getSinglePhoto, likePost } from '../services/utils';
 
 class Single extends Component {
     constructor(props) {
@@ -19,32 +19,39 @@ class Single extends Component {
         if (this.state.match) {
             getSinglePhoto(this.state.match)
             .then(res => {
-                this.setState({ data: res.data })
+                this.setState({ 
+                    data: res.data,
+                    hearts: res.data[0].likes,
+                    userLiked: res.data[0].likedBy.includes(this.props.userInfo.userInfo._id)
+                 })
             })
-            // .then(response => {
-            //     response.json()
-            //     .then(data => ({data: data}))
-            //     .then(res => console.log(res))
-            // })
-            // .catch(err => console.log(err))
+            .catch(err => console.log(err))
         }
     }
-    // heart = () => {
-    //     this.setState({
-    //         userLiked: !this.state.userLiked
-    //     })
-    //     if (this.state.userLiked){
-    //         this.setState({ hearts: this.state.hearts - 1})
-    //     }
-    //     if (!this.state.userLiked){
-    //         this.setState({ hearts: this.state.hearts + 1})
-    //     }
-        
-    // }
-
-    handleClick = () => {
-        console.log('clicked')
+    heart = () => {
+        this.setState({
+            userLiked: !this.state.userLiked
+        })
+        if (this.state.userLiked){
+            this.setState({ 
+                hearts: this.state.hearts - 1,
+                userLiked: false
+            }, this.sendLiked)
+        }
+        if (!this.state.userLiked){
+            this.setState({ 
+                hearts: this.state.hearts + 1,
+                userLiked: true
+            }, this.sendLiked)
+        }
     }
+
+    sendLiked = () => { 
+        likePost(this.state.match, this.state.hearts, this.props.userInfo.userInfo._id)
+            .then(res => console.log(res))
+            .catch(err => console.log(err)) 
+    }
+
     handleChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
     }
@@ -74,8 +81,8 @@ class Single extends Component {
                     <hr />
                     <Form>
                         <FormGroup>
-                         <img className="single-like-size" name="heart" src={this.state.userLiked ? "/img/heart.png" : "/img/heart_empty.png"} alt="heart" onClick={this.handleClick} /> 
-                         <span> {data.likes} likes</span>
+                         <img className="single-like-size" name="heart" src={this.state.userLiked ? "/img/heart.png" : "/img/heart_empty.png"} alt="heart" onClick={this.heart} /> 
+                         <span> {this.state.hearts} likes</span>
                         </FormGroup>
                     </Form>
                     <Form onSubmit={this.handleSumbit}>

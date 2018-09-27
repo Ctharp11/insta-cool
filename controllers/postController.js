@@ -58,7 +58,6 @@ exports.cloudinary = (req, res) => {
 exports.getSingle = async (req, res) => {
     try{
         const single = await Post.find({ _id: req.params.id})
-        console.log('single', single)
         res.status(200).json(single)
     }
     catch(err) {
@@ -70,6 +69,25 @@ exports.getUserPosts = async (req, res) => {
     try {
         const posts = await Post.find({ "author.id": req.params.id })
         res.status(200).json(posts);
+    }
+    catch(err) {
+        res.status(500).json(err)
+    }
+}
+
+exports.likedPost = async (req, res) => {
+    try {
+        console.log(req.body)
+        const likedPost = await Post.findByIdAndUpdate(
+            req.body.id, 
+            {
+                likes: req.body.sendLike,
+                likedBy: req.body.userId
+            },
+            {new: true}
+        )
+        console.log(likedPost)
+
     }
     catch(err) {
         res.status(500).json(err)

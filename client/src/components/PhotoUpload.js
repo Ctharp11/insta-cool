@@ -45,6 +45,7 @@ class PhotoUpload extends Component {
         })
         .catch(err => err)
         this.props.toggle()
+        this.props.browser.history.push("/account");
     }
 
     render(){

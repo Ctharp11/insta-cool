@@ -20,6 +20,10 @@ const postSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
+    likedBy: {
+        type: [mongoose.Schema.ObjectId],
+        ref: 'User'
+    },
     author: {
         id: {
             type: String
