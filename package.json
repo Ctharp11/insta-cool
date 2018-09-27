@@ -4,6 +4,9 @@
   "description": "This is an Instagram clone made with the MERN stack. Photos are saved in Cloudinary.",
   "main": "server.js",
   "scripts": {
+    "client-install": "npm install --prefix client",
+    "start": "NODE_ENV=production node app.js",
+    "server": "NODE_ENV=development nodemon app.js",
     "server-dev": "cross-env NODE_ENV=prod nodemon server/index.js",
     "client-dev": "npm start --prefix client",
     "start-dev": "concurrently \"npm run server-dev\" \"npm run client-dev\"",
