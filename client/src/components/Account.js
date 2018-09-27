@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { getUserPosts } from '../services/utils';
+import PhotoGrid from './PhotoGrid';
 
 class Account extends Component {
     constructor(props) {
@@ -10,32 +11,37 @@ class Account extends Component {
         }
     }
 
-    componentWillMount() {
-        console.log(this.props)
-
-    }
-
-    componentDidUpdate() {
+    componentDidMount() {
         const userID = this.props.userInfo.userInfo._id;
-        // getUserPosts(userID)
-        // .then(res => this.setState({ posts: res.data }))
-        // .catch(err => console.log(err))
-    }
-
-    updatePostsState = () => {
-
+        getUserPosts(userID)
+        .then(res => this.setState({ posts: res.data }))
+        .catch(err => console.log(err))
     }
 
     render() {
         if (this.props.userInfo === '') {
             return null;
         }
-        console.log(this.props.userInfo)
         const userInfo = this.props.userInfo.userInfo;
         return (
             <div>
-              <div> Welcome {userInfo.facebook.first_name}!</div>
-              <img src={userInfo.facebook.photo} alt='you' />
+              <div className="account-head">
+                <div className="account-head-img">
+                  <img className="account-img" src={userInfo.facebook.photo} alt='you' />
+                </div>
+                <div>
+                  <span className="account-name">{userInfo.facebook.first_name} {userInfo.facebook.last_name}</span>
+                  <span className="account-postsnum"> {this.state.posts.length} posts  </span>
+                </div>
+              </div>
+
+              <div className="account-posts">
+                <div className="main">
+                {
+                  this.state.posts.map(post => <PhotoGrid key={post._id} {...post} />)
+                }
+                 </div>
+              </div>
             </div>
         )
     }

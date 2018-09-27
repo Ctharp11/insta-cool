@@ -105,6 +105,10 @@ class App extends Component {
     if (this.state.posts.length === 0) {
       return null;
     }
+    if(this.state.loggedin && this.state.userInfo === '') {
+      return null
+    }
+
     const allProps = {
       props: this.props,
       posts: this.state.posts,

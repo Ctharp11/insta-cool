@@ -68,9 +68,7 @@ exports.getSingle = async (req, res) => {
 
 exports.getUserPosts = async (req, res) => {
     try {
-        console.log(req.params.id)
         const posts = await Post.find({ "author.id": req.params.id })
-        console.log(posts)
         res.status(200).json(posts);
     }
     catch(err) {

@@ -8,7 +8,28 @@ a:hover {
     color: black;
     text-decoration: none;
 }
-
+.account-head {
+    margin: 0 auto;
+    width: 80%;
+    align-items: center;
+    display: flex;
+}
+.account-head-img {
+    width: 350px;
+    text-align: center;
+}
+.account-img {
+    border-radius: 50%;
+    margin-right: 20px;
+}
+.account-name {
+    font-size: 30px;
+    font-weight: 300;
+    margin-right: 20px;
+}
+.account-postsnum {
+    font-weight: 600;
+}
 .button {
     background-color: #514ecc;
     color: white;
