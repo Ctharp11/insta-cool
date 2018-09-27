@@ -19,7 +19,6 @@ class Single extends Component {
         if (this.state.match) {
             getSinglePhoto(this.state.match)
             .then(res => {
-                console.log(res.data)
                 this.setState({ data: res.data })
             })
             // .then(response => {

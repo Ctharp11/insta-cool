@@ -49,7 +49,6 @@ class PhotoUpload extends Component {
     }
 
     render(){
-        console.log(this.props.browser)
         return (
             <div> 
                 <Modal isOpen={this.props.modal} toggle={this.props.toggle}>

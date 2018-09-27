@@ -3,10 +3,12 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const path = require('path');
 const routes = require('./routes/index');
+var cors = require('cors')
 require('dotenv').config();
 
 const app = express();
 
+app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
 app.use(bodyParser.json());
 
 mongoose.connect(process.env.DATABASE, {useNewUrlParser: true})

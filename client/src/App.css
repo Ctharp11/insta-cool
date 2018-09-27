@@ -29,6 +29,56 @@ a:hover {
 .dropzone-text {
     font-size: 1.2rem;
 }
+.login-modal {
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2000;
+    background-color: rgba(255,255,255,.65);
+}
+.modalz {
+    margin: 50px auto;
+    z-index: 3000;
+    display: block;
+    width: 80vw;
+    height: 400px;
+    background-color: rgb(190, 168, 168);
+    border-radius: 2px;
+    text-align:center;
+}
+.modalz-x {
+    margin: 50px;
+    float: right;
+    font-size: 18px;
+}
+.modalz-x:hover {
+    cursor: pointer;
+}
+.modalz-header {
+    clear: both;
+    font-size: 30px;
+}
+.modalz-subhead {
+    font-size: 18px;
+}
+.modalz-button {
+    margin: 20px auto;
+}
+.modal-tran-enter {
+    opacity: 0.01;
+}
+.modal-tran-enter-active {
+    opacity: 1;
+    transition: all 300ms ease-out;
+}
+.modal-tran-exit {
+    opacity: 1;
+}
+.modal-tran-exit-active {
+    opacity: 0.01;
+    transition: all 300ms ease-out;
+}
 .preview {
     display: flex;
 }

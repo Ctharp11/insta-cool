@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { Route, Switch, withRouter } from 'react-router';
-
-// import { getPosts, postUser, getUser, removeUser } from './services/utils';
 import { getPosts } from './services/utils';
 import { 
   Alert,
   Container, 
 } from 'reactstrap';
+import { CSSTransition } from 'react-transition-group';
 
 import Main from './components/Main';
 import NavbarCom from './components/NavbarCom';
@@ -29,7 +28,7 @@ class App extends Component {
       success: false,
       error: false,
       posts: [],
-      userId: ''
+      toggleLogin: false
     }
     this.toggle = this.toggle.bind(this);
   }
@@ -73,6 +72,11 @@ class App extends Component {
     });
   }
 
+  toggleLoginFun = () => {
+    console.log('clicked');
+    this.setState({ toggleLogin: !this.state.toggleLogin });
+  }
+
   handleChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value
@@ -97,8 +101,10 @@ class App extends Component {
       browser: this.props,
       toggle:this.toggle,
       userLoggOut: this.userLoggOut,
-      sendStatus: this.sendStatus
+      sendStatus: this.sendStatus,
+      toggleLoginFun: this.toggleLoginFun
     }
+    const { toggleLogin } =  this.state;
     return (
       <div className="app">
         <NavbarCom {...allProps} />
@@ -119,7 +125,6 @@ class App extends Component {
         <Container>
           <Switch>
             <Route exact path="/" render={() => <Main {...allProps} />} />
-            <Route exact path="/login" render={() => <Login {...allProps} />} />
             <Route exact path="/account" render={() => <Account {...allProps} />} />
             <Route exact path={"/p/:id"} render={() => <Single {...allProps} />} />
           </Switch>
@@ -132,7 +137,29 @@ class App extends Component {
               updateStatePost={this.updateStatePost}
             />
           }
-        </Container>
+          </Container> 
+          <CSSTransition
+            in={toggleLogin}
+            timeout={300}
+            classNames="login-modal"
+            unmountOnExit
+            onExited={() => {
+              this.setState({
+                toggleLogin: false,
+              });
+          }}
+        >
+          {state => (
+              <CSSTransition
+                in={state === 'entered'}
+                timeout={300}
+                classNames="modal-tran"
+                unmountOnExit
+              >
+                <div className="modal-tran"><Login {...allProps} /></div>
+              </CSSTransition>
+          )}
+        </CSSTransition>
       </div>  
     );
   }

@@ -4,11 +4,9 @@
   "description": "This is an Instagram clone made with the MERN stack. Photos are saved in Cloudinary.",
   "main": "server.js",
   "scripts": {
-    "start": "NODE_ENV=production node server.js",
-    "server": "NODE_ENV=development nodemon server.js",
-    "client": "npm run start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+    "server-dev": "cross-env NODE_ENV=prod nodemon server/index.js",
+    "client-dev": "npm start --prefix client",
+    "start-dev": "concurrently \"npm run server-dev\" \"npm run client-dev\""
   },
   "repository": {
     "type": "git",
@@ -30,6 +28,8 @@
     "cloudinary": "^1.11.0",
     "concurrently": "^4.0.1",
     "connect-multiparty": "^2.1.1",
+    "cors": "^2.8.4",
+    "cross-env": "^5.2.0",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "jsonwebtoken": "^8.3.0",
@@ -37,7 +37,8 @@
     "multer": "^1.3.1",
     "passport": "^0.4.0",
     "passport-facebook-token": "^3.3.0",
-    "passport-jwt": "^4.0.0"
+    "passport-jwt": "^4.0.0",
+    "react-scripts": "^1.1.5"
   },
   "devDependencies": {
     "nodemon": "^1.18.4"
