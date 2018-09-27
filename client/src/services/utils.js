@@ -23,6 +23,11 @@ export const post = (file, bodyInfo) => {
 export const getSinglePhoto = (id) => {
     return app.get(`/api/${id}`);
 }
+export const getUserPosts = (id) => {
+    return app.get(`/api/posts/${id}`);
+}
+
+//facebook login
 export const postUser = (token) => {
     return app.post('/users/oauth/facebook', { "access_token": token })
 }

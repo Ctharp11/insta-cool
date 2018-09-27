@@ -57,10 +57,21 @@ exports.cloudinary = (req, res) => {
 
 exports.getSingle = async (req, res) => {
     try{
-         console.log(req.params.id)
         const single = await Post.find({ _id: req.params.id})
         console.log('single', single)
         res.status(200).json(single)
+    }
+    catch(err) {
+        res.status(500).json(err)
+    }
+}
+
+exports.getUserPosts = async (req, res) => {
+    try {
+        console.log(req.params.id)
+        const posts = await Post.find({ "author.id": req.params.id })
+        console.log(posts)
+        res.status(200).json(posts);
     }
     catch(err) {
         res.status(500).json(err)

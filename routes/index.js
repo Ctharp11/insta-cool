@@ -21,6 +21,7 @@ router.post('/api',
     postController.cloudinary
 );
 router.get('/api/:id', postController.getSingle);
+router.get('/api/posts/:id', postController.getUserPosts)
 
 //user routes
 router.get('/users/secret', 
