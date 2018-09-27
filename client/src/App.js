@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Route, Switch, withRouter } from 'react-router';
-import { getPosts } from './services/utils';
+import { Route, Switch, Redirect, withRouter } from 'react-router';
+import { getPosts, getUser } from './services/utils';
 import { 
   Alert,
   Container, 
@@ -37,33 +37,41 @@ class App extends Component {
     .then(res => this.setState({ posts: res.data}))
     .catch(err => console.log(err))
 
-      // getUser()
-      // .then(res => this.setState({ userId: res.data[0]._id }))
-      // .catch(err => console.log(err))
+    const usertoken = localStorage.getItem('token');
+    if (usertoken) {
+      this.setState({ loggedin: true });
+      getUser(usertoken)
+      .then(res => this.setState({ userInfo: res.data, loggedin: true }))
+      .catch(err => console.log(err))
+    }
   }
 
   updateStatePost = () => {
-    console.log('fired')
     getPosts()
     .then(res => this.setState({ posts: res.data}, console.log('posts', this.state.posts)))
     .catch(err => console.log(err))
   }
 
-  userLoggedState = (userInfo) => {
-    // postUser(userInfo)
-    // .then(res => console.log('posting user', res))
-    // .catch(err => console.log(err))
+  getUserData = () => {
+    const usertoken = localStorage.getItem('token');
+    console.log('usertoken', usertoken);
+    getUser(usertoken)
+    .then(res => this.logginUser(res.data))
+    .catch(err => console.log(err))
+  }
+
+  logginUser = (userInfo) => {
     this.setState({ 
-      loggedin: true ,
+      loggedin: true,
       userInfo
-    })  
+    });
+    this.props.history.push('/account');
   }
 
   userLoggOut = () => {
     this.setState({ loggedin: false });
-    // removeUser(this.state.userId)
-    // .then(res => console.log('removing user from db', res))
-    // .catch(err => console.log(err))
+    localStorage.removeItem('token');
+    this.props.history.push('/');
   }
 
   toggle = () => {
@@ -73,7 +81,6 @@ class App extends Component {
   }
 
   toggleLoginFun = () => {
-    console.log('clicked');
     this.setState({ toggleLogin: !this.state.toggleLogin });
   }
 
@@ -88,6 +95,13 @@ class App extends Component {
     
   }
 
+  forbiddenUrl = (Component, props) => {
+    if (this.state.loggedin) {
+      return <Component {...props} />
+    }
+    return <Redirect to='/' />
+  }
+
   render() {
     if (this.state.posts.length === 0) {
       return null;
@@ -95,7 +109,7 @@ class App extends Component {
     const allProps = {
       props: this.props,
       posts: this.state.posts,
-      userLoggedState: this.userLoggedState,
+      getUserData: this.getUserData,
       loggedin: this.state.loggedin,
       userInfo: this.state.userInfo,
       browser: this.props,
@@ -125,7 +139,7 @@ class App extends Component {
         <Container>
           <Switch>
             <Route exact path="/" render={() => <Main {...allProps} />} />
-            <Route exact path="/account" render={() => <Account {...allProps} />} />
+            <Route exact path="/account" render={() => this.forbiddenUrl(Account, allProps)} />
             <Route exact path={"/p/:id"} render={() => <Single {...allProps} />} />
           </Switch>
           {this.state.modal &&

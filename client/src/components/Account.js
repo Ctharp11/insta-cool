@@ -8,13 +8,15 @@ class Account extends Component {
         }
     }
     render() {
-        if (!this.props.userInfo) {
-            return null
+        if (this.props.userInfo === '') {
+            return null;
         }
+        const userInfo = this.props.userInfo.userInfo;
+        console.log(userInfo.facebook)
         return (
             <div>
-              <div> Welcome {this.props.userInfo.first_name}!</div>
-              <img src={this.props.userInfo.picture} alt='you' />
+              <div> Welcome {userInfo.facebook.first_name}!</div>
+              <img src={userInfo.facebook.photo} alt='you' />
             </div>
         )
     }

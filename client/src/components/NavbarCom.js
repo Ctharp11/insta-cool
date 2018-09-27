@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import keys from '../keys';
 
 class NavbarCom extends Component {
   constructor(props) {
@@ -33,7 +32,7 @@ class NavbarCom extends Component {
                           <Link to="/account"> My Account </Link>
                         </div> 
                         <div className="nav-item">
-                          <div onClick={this.loggout}> Sign out </div>
+                          <div onClick={this.props.userLoggOut}> Sign out </div>
                         </div> 
                       </div>
                       :

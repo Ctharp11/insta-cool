@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import FacebookLogin from 'react-facebook-login';
 import keys from '../keys';
+import { postUser } from '../services/utils';
 
 class Login extends Component {
 
@@ -18,13 +19,18 @@ class Login extends Component {
 
   handleClick = (event) => {
     if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
-      console.log('clicked');
       this.props.toggleLoginFun();
    }
   }
 
   responseFacebook = (response) => {
-    console.log(response)
+    const token = response.accessToken;
+    postUser(token)
+    .then(res =>  {
+      localStorage.setItem('token', res.data.token) 
+      this.props.getUserData();
+    })
+    .catch(err => console.log('axios err', err))
   }
 
   componentClicked = () => {     

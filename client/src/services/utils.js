@@ -23,10 +23,17 @@ export const post = (file, bodyInfo) => {
 export const getSinglePhoto = (id) => {
     return app.get(`/api/${id}`);
 }
-export const postUser = (userDetails) => {
-    return app.post('/users/secret', userDetails)
+export const postUser = (token) => {
+    return app.post('/users/oauth/facebook', { "access_token": token })
 }
-export const getUser = (userDetails) => {
-    return app.post('/users/secret', userDetails)
+export const getUser = (usertoken) => {
+    return app.get('/users/secret', {
+        headers: {
+            'Authorization': usertoken,
+            'credentials': 'same-origin',
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })
 }
 

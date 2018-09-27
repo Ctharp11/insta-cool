@@ -43,9 +43,10 @@ a:hover {
     display: block;
     width: 80vw;
     height: 400px;
-    background-color: rgb(190, 168, 168);
+    background-color: rgb(215,238,237);
     border-radius: 2px;
     text-align:center;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, .3);
 }
 .modalz-x {
     margin: 50px;
@@ -57,10 +58,12 @@ a:hover {
 }
 .modalz-header {
     clear: both;
-    font-size: 30px;
+    font-size: 40px;
+    margin-top: -20px;
 }
 .modalz-subhead {
     font-size: 18px;
+    margin-bottom: 10px;
 }
 .modalz-button {
     margin: 20px auto;
