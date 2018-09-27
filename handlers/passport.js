@@ -30,7 +30,6 @@ passport.use('facebook', new FacebookTokenStrategy({
     callbackURL: 'http://localhost:3000/auth/facebook/callback'
 }, async (accessToken, refreshToken, profile, done) => {
     try {
-        console.log(accessToken, refreshToken, profile, done)
         const existingUser = await User.findOne({ "facebook.id": profile.id })
         if (existingUser) {
             return done(null, existingUser);
@@ -42,7 +41,7 @@ passport.use('facebook', new FacebookTokenStrategy({
                 id: profile.id,
                 email: profile.emails[0].value,
                 first_name: profile.name.givenName,
-                last_name: profile.name.famileName,
+                last_name: profile.name.familyName,
                 photo: profile.photos[0].value
             }
         })

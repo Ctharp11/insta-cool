@@ -22,7 +22,7 @@ class NavbarCom extends Component {
               <Link to="/"><img className="nav-logo" src="/img/logo.png" alt="logo" /> </Link>
             </div>
             <div className="nav-right">
-              <div className="nav-item" onClick={this.props.toggle}> 
+              <div className="nav-item" onClick={() => {this.props.loggedin ? this.props.toggle() : this.props.toggleLoginFun()}}> 
                 Post 
               </div>
                   {this.props.loggedin 

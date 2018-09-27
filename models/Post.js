@@ -21,7 +21,18 @@ const postSchema = new mongoose.Schema({
         default: 0
     },
     author: {
-        type: String
+        id: {
+            type: String
+        },
+        first_name: {
+            type: String
+        },
+        last_name: {
+            type: String
+        },
+        photo: {
+            type: String
+        }
     }
 });
 

@@ -48,13 +48,12 @@ class App extends Component {
 
   updateStatePost = () => {
     getPosts()
-    .then(res => this.setState({ posts: res.data}, console.log('posts', this.state.posts)))
+    .then(res => this.setState({ posts: res.data}))
     .catch(err => console.log(err))
   }
 
   getUserData = () => {
     const usertoken = localStorage.getItem('token');
-    console.log('usertoken', usertoken);
     getUser(usertoken)
     .then(res => this.logginUser(res.data))
     .catch(err => console.log(err))

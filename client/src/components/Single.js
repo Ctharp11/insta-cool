@@ -67,8 +67,8 @@ class Single extends Component {
                 </div>
                 <div className="single-right">
                     <div>
-                        <img className="single-user-image" src="/img/boat.jpg" alt="user" />
-                        <span className="single-username"> Cameron Tharp </span>
+                        <img className="single-user-image" src={data.author.photo} alt="user" />
+                        <span className="single-username"> {data.author.first_name} {data.author.last_name} </span>
                     </div>
                     <div> {data.text}  </div>
                     <hr />

@@ -13,10 +13,10 @@ cloudinary.config({
 exports.getPosts = async (req, res) => {
     try {
        const posts = await Post.find() 
-        res.json(posts);
+       res.status(200).json(posts);
     }
     catch(err) {
-        console.log('error happening', err)
+        res.status(500).json({ error: err})
     }
 }
 
@@ -24,36 +24,45 @@ exports.type = upload.single('file');
 
 exports.uppic = (req, res, next) => {
     try {
-        res.status(200).json({status: "200"});
+        res.status(200).json({status: "success"});
         next();
     }
     catch(err) {
-        console.log(err)
-        res.status(500).json({error: "Internal server error"});
+        res.status(500).json({error: err});
     }
 }
 
 exports.cloudinary = (req, res) => {
-    console.log('files', req.file.path);
+    console.log('req.user', req.user);
     const obj = JSON.parse(req.body.bodyInfo)
-    console.log('obj', obj)
     cloudinary.v2.uploader.upload(`./${req.file.path}`, function(err, result) {
-        if (err) console.log(err)
-        console.log(result)
+        if (err) res.json({ error: err });
         var post = new Post({
             text: obj.text,
             likes: obj.likes,
-            author: obj.author,
+            author: {
+                id: obj.author._id,
+                first_name: obj.author.facebook.first_name,
+                last_name: obj.author.facebook.last_name,
+                photo: obj.author.facebook.photo
+            },
             file: result.url,
             file_id: result.public_id
         });
         post.save()
         .then(res => res)
-        .catch(err => err);
+        .catch(err => err)
     });
 }
 
 exports.getSingle = async (req, res) => {
-    const single = await Post.find({ _id: req.params.id})
-    res.json(single)
+    try{
+         console.log(req.params.id)
+        const single = await Post.find({ _id: req.params.id})
+        console.log('single', single)
+        res.status(200).json(single)
+    }
+    catch(err) {
+        res.status(500).json(err)
+    }
 }

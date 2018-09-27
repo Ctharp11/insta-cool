@@ -36,7 +36,7 @@ class PhotoUpload extends Component {
         const bodyInfo = {
             text: this.state.text.trim(),
             likes: 0,
-            author: this.props.userInfo.fb_id
+            author: this.props.userInfo.userInfo
         }
         post(this.state.file, bodyInfo)
         .then(res => {
@@ -45,7 +45,6 @@ class PhotoUpload extends Component {
         })
         .catch(err => err)
         this.props.toggle()
-        // this.props.browser.history.push('/');
     }
 
     render(){

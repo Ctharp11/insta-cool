@@ -12,7 +12,6 @@ class Account extends Component {
             return null;
         }
         const userInfo = this.props.userInfo.userInfo;
-        console.log(userInfo.facebook)
         return (
             <div>
               <div> Welcome {userInfo.facebook.first_name}!</div>
