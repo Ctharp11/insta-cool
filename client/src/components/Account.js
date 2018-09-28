@@ -12,11 +12,18 @@ class Account extends Component {
     }
 
     componentDidMount() {
+        // console.log('component mounted') //not firing after post...how to get new state
         const userID = this.props.userInfo.userInfo._id;
         getUserPosts(userID)
         .then(res => this.setState({ posts: res.data }))
         .catch(err => console.log(err))
     }
+    // componentDidUpdate() {
+    //     console.log('componentDidUpdate', this.props.posts)
+    //     this.props.posts.map(post => {
+    //         const usersPosts = post.author.id.includes(this.props.userInfo.userInfo._id);
+    //     })
+    // }
 
     render() {
         if (this.props.userInfo === '') {

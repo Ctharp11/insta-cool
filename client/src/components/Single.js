@@ -22,8 +22,8 @@ class Single extends Component {
             .then(res => {
                 this.setState({ 
                     data: res.data,
-                    hearts: res.data[0].likes
-                    // userLiked: res.data[0].likedBy.includes(this.props.userInfo.userInfo._id)
+                    hearts: res.data[0].likes,
+                    userLiked: this.props.loggedin ? res.data[0].likedBy.includes(this.props.userInfo.userInfo._id) : false
                  })
             })
             .catch(err => console.log(err))
@@ -31,9 +31,17 @@ class Single extends Component {
     }
     heart = () => {
         if(this.props.loggedin) {
-            likePost(this.state.match, this.props.userInfo.userInfo._id)
-            .then(res => console.log(res), this.setState({ updated: true }))
-            .catch(err => console.log(err)) 
+            if (!this.state.userLiked) {
+                likePost(this.state.match, this.props.userInfo.userInfo._id, 'liked')
+                .then(res => console.log(res), this.setState({ userLiked: true, hearts: this.state.hearts + 1 }))
+                .catch(err => console.log(err)) 
+            }
+            
+            if (this.state.userLiked) {
+                likePost(this.state.match, this.props.userInfo.userInfo._id, 'disliked')
+                .then(res => console.log(res), this.setState({ userLiked: false, hearts: this.state.hearts - 1 }))
+                .catch(err => console.log(err)) 
+            }
         }
         if (!this.props.loggedin) {
             this.setState({error: 'You must be logged in to like a post!'})

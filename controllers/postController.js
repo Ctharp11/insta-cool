@@ -71,16 +71,26 @@ exports.getUserPosts = async (req, res) => {
 
 exports.likedPost = async (req, res) => {
     try {
-        const likedPost = await Post.findByIdAndUpdate(
-            req.params.id, 
-            {
+        if(req.body.likeStatus === 'liked') {
+            const likedPost = await Post.findByIdAndUpdate(
+              req.params.id, 
+              {
                 "$inc": { "likes": 1 },
                 "$push": { "likedBy": req.body.userid }
-            },
-            {new: true}
-        )
-        console.log(likedPost)
-
+              },
+              {new: true}
+            )
+        }
+        if (req.body.likeStatus === 'disliked') {
+            const likedPost = await Post.findByIdAndUpdate(
+                req.params.id, 
+                {
+                  "$inc": { "likes": -1 },
+                  "$pull": { "likedBy": req.body.userid }
+                },
+                {new: true}
+              )
+        }
     }
     catch(err) {
         res.status(500).json(err)
