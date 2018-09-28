@@ -1,11 +1,5 @@
 import axios from 'axios';
 import FormData from 'form-data'
-// import keys from '../keys';
-
-// const app = axios.create({
-//     baseURL: 'http://localhost:7777',
-//     withCredentials: true
-// })
 
 export const getPosts = () => {
     return axios.get('/api');
@@ -32,7 +26,7 @@ export const likePost = (id, sendLike, userId) => {
         sendLike,
         userId
     }
-    return axios.post(`api/liked/${id}`, postData)
+    return axios.post(`/api/liked/${id}`, postData)
 }
 
 //facebook login
@@ -40,7 +34,7 @@ export const postUser = (token) => {
     return axios.post('/users/oauth/facebook', { "access_token": token })
 }
 export const getUser = (usertoken) => {
-    return axios.get('/users/secret', {
+    return axios.get('/users/secret', {    
         headers: {
             'Authorization': usertoken,
             'credentials': 'same-origin',

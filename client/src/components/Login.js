@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import FacebookLogin from 'react-facebook-login';
-import keys from '../keys';
 import { postUser } from '../services/utils';
 
 class Login extends Component {
@@ -38,6 +37,7 @@ class Login extends Component {
   }
 
   render() {
+    console.log(process.env.REACT_APP_FACEBOOK_APP_ID)
     return (  
       <div className="login-modal"> 
         <div className="modalz" ref={this.setWrapperRef}>
@@ -47,7 +47,7 @@ class Login extends Component {
           <div className="modalz-subhead"> Sign in to be able to view, post, and like photos from around the world. </div>
           <div className="modalz-button"> 
           <FacebookLogin
-            appId={keys.FACEBOOK_APP_ID}
+            appId={process.env.REACT_APP_FACEBOOK_APP_ID}
             fields="name,email,picture"
             onClick={this.componentClicked}
             callback={this.responseFacebook} />             
