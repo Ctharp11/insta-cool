@@ -11,24 +11,25 @@ class PhotoGrid extends Component {
     }
     render() {
         const item = this.props
+        console.log(item)
         return(
             <div className="post"> 
-                <Link to={`/p/${item._id}`}>
-                <img className="post-img" src={item.file} alt={item._id} />
-                <Container>
-                    <div className="post-description"> {item.text} </div>
-                    <div className="post-bottom"> 
-                        <span className="post-btn post-like"> 
-                            <img className="post-like-size" src="/img/heart.png" alt="heart" /> 
-                            <span> {item.likes} </span>
-                        </span>
-                        <span className="post-btn post-comments"> 
-                            <img className="post-bubble" src="/img/bubble.png" alt="comments" /> 
-                            <span> {item.comments} </span>
-                        </span>
-                    </div>
-                </Container>
-                </Link>
+              <Link to={`/p/${item._id}`}>
+              <img className="post-img" src={item.file} alt={item._id} />
+              <Container>
+                <div className="post-description"> {item.text} </div>
+                <div className="post-bottom"> 
+                    <span className="post-btn post-like"> 
+                        <img className="post-like-size" src="/img/heart.png" alt="heart" /> 
+                        <span> {item.likes} </span>
+                    </span>
+                    <span className="post-btn post-comments"> 
+                        <img className="post-bubble" src="/img/bubble.png" alt="comments" /> 
+                        <span>  </span>
+                    </span>
+                </div>
+              </Container>
+              </Link>
             </div> 
         )
     }

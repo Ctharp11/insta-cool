@@ -45,7 +45,7 @@ class Account extends Component {
               <div className="account-posts">
                 <div className="main">
                 {
-                  this.state.posts.map(post => <PhotoGrid key={post._id} {...post} />)
+                    this.state.posts.map(post => <PhotoGrid key={post._id} {...post} />)
                 }
                  </div>
               </div>

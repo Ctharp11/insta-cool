@@ -22,6 +22,7 @@ router.post('/api',
 router.get('/api/:id', postController.getSingle);
 router.get('/api/posts/:id', postController.getUserPosts);
 router.post('/api/liked/:id', postController.likedPost);
+router.post('/api/comment/:id', postController.postComment);
 
 //user routes
 router.get('/users/secret', 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Form, FormGroup, Input } from 'reactstrap';
-import { getSinglePhoto, likePost } from '../services/utils';
+import { getSinglePhoto, likePost, commentPost } from '../services/utils';
 
 class Single extends Component {
     constructor(props) {
@@ -48,18 +48,19 @@ class Single extends Component {
         }
     }
 
-    sendLiked = () => { 
-        likePost(this.state.match, this.state.hearts, this.props.userInfo.userInfo._id)
-            .then(res => console.log(res))
-            .catch(err => console.log(err)) 
-    }
-
     handleChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
     }
     handleSumbit = (e) => {
         e.preventDefault();
         if (this.props.loggedin) {
+            const userInfo = {
+                id: this.props.userInfo.userInfo._id,
+                first_name: this.props.userInfo.userInfo.facebook.first_name,
+                last_name: this.props.userInfo.userInfo.facebook.last_name,
+                text: this.state.comment
+            }
+            commentPost(this.state.match, userInfo)
             this.setState({ comments: [this.state.comments, this.state.comment]});
             var newStateArray = this.state.comments.slice();
             newStateArray.push(this.state.comment);

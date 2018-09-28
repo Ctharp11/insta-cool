@@ -27,6 +27,9 @@ export const likePost = (postid, userid, likeStatus) => {
     }
     return axios.post(`/api/liked/${postid}`, body)
 }
+export const commentPost = (postid, userinfo) => {
+    return axios.post(`/api/comment/${postid}`, {userinfo})
+}
 
 //facebook login
 export const postUser = (token) => {

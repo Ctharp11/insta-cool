@@ -37,6 +37,15 @@ const postSchema = new mongoose.Schema({
         photo: {
             type: String
         }
+    },
+    comments: {
+        text: {
+            type: [String]
+        },
+        created: {
+            type: Date,
+            default: Date.now()
+        }
     }
 });
 

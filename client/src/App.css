@@ -4,17 +4,14 @@
 a {
     color: black;
 }
-a:hover {
+/* a:hover {
     color: black;
     text-decoration: none;
-}
+} */
 .account-head {
     align-items: center;
     display: flex;
     justify-content: center;
-}
-.account-head-right {
-    /* display:  */
 }
 .account-head-img {
     text-align: center;
@@ -60,18 +57,18 @@ a:hover {
     display: flex;
     justify-content: center;
 }
-.dropzone:hover {
+/* .dropzone:hover {
     cursor: pointer;
-}
+} */
 .dropzone-text {
     font-size: 1.2rem;
 }
 .error-x {
     font-weight: 300;
 }
-.error-x:hover {
+/* .error-x:hover {
     cursor: pointer;
-}
+} */
 .login-modal {
     position: fixed;
     top: 0;
@@ -96,9 +93,9 @@ a:hover {
     float: right;
     font-size: 18px;
 }
-.modalz-x:hover {
+/* .modalz-x:hover {
     cursor: pointer;
-}
+} */
 .modalz-header {
     clear: both;
     font-size: 40px;
@@ -158,9 +155,9 @@ a:hover {
     margin: 1rem;
     transition: all .3s ease-in;
 }
-.nav-item:hover {
+/* .nav-item:hover {
     cursor: pointer;
-}
+} */
 .nav-link {
     padding-bottom: 0;
 }
@@ -172,10 +169,10 @@ a:hover {
     background: #000;
     transition: width .3s;
 }
-.nav-item:hover::after {
+/* .nav-item:hover::after {
     width: 100%;
     cursor: pointer;
-}
+} */
 .nav-logo {
     height: 4rem;
     margin: 2rem;
@@ -197,11 +194,11 @@ a:hover {
     text-decoration: none;
     color: black;
 }
-.post:hover {
+/* .post:hover {
     cursor: pointer;
     filter: opacity(.6);
     transform: translateY(-2px);
-}
+} */
 .post-img {
     height: 12rem;
     width: 100%;
@@ -256,9 +253,9 @@ a:hover {
 .single-like-size {
     height: 2rem;
 }
-.single-like-size:hover {
+/* .single-like-size:hover {
     cursor: pointer;
-}
+} */
 .single-username {
     font-weight: 600;
 }
@@ -270,6 +267,37 @@ a:hover {
 }
 .single-commentsec {
     margin: 3px;
+}
+
+@media (hover: hover) {
+    a:hover {
+        color: black;
+        text-decoration: none;
+    }
+    .dropzone:hover {
+        cursor: pointer;
+    }
+    .error-x:hover {
+        cursor: pointer;
+    }
+    .modalz-x:hover {
+        cursor: pointer;
+    }
+    .nav-item:hover {
+        cursor: pointer;
+    }
+    .post:hover {
+        cursor: pointer;
+        filter: opacity(.6);
+        transform: translateY(-2px);
+    }
+    .single-like-size:hover {
+        cursor: pointer;
+    }
+    .nav-item:hover::after {
+        width: 100%;
+        cursor: pointer;
+    }
 }
 
 @media all and (max-width: 775px) {
