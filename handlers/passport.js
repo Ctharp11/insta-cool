@@ -27,7 +27,7 @@ passport.use(new JwtStrategy({
 passport.use('facebook', new FacebookTokenStrategy({
     clientID: process.env.FACEBOOK_APP_ID,
     clientSecret: process.env.FACEBOOK_APP_SECRET,
-    callbackURL: 'http://localhost:3000/auth/facebook/callback'
+    callbackURL: 'http://localhost:3000/account'
 }, async (accessToken, refreshToken, profile, done) => {
     try {
         const existingUser = await User.findOne({ "facebook.id": profile.id })

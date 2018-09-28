@@ -70,7 +70,7 @@ class PhotoUpload extends Component {
                             {this.state.file !== '' &&
                               <div className="preview">
                                 <img className="preview-photo" src={this.state.file[0].preview} alt="preview" />
-                                <FormGroup className="preview-text">
+                                <FormGroup className="preview-text modal-text">
                                   <Input type="textarea" name="text" id="exampleText" placeholder="Write a caption..." onChange={this.handleChange} /> </FormGroup>
                               </div>
                             }

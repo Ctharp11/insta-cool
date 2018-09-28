@@ -36,9 +36,9 @@ class Account extends Component {
                 <div className="account-head-img">
                   <img className="account-img" src={userInfo.facebook.photo} alt='you' />
                 </div>
-                <div>
-                  <span className="account-name">{userInfo.facebook.first_name} {userInfo.facebook.last_name}</span>
-                  <span className="account-postsnum"> {this.state.posts.length} posts  </span>
+                <div className="account-head-right">
+                  <div className="account-name">{userInfo.facebook.first_name} {userInfo.facebook.last_name}</div>
+                  <div className="account-postsnum"> {this.state.posts.length} posts  </div>
                 </div>
               </div>
 

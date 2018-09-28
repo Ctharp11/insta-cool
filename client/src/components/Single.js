@@ -46,22 +46,6 @@ class Single extends Component {
         if (!this.props.loggedin) {
             this.setState({error: 'You must be logged in to like a post!'})
         }
-        
-        // this.setState({
-        //     userLiked: !this.state.userLiked
-        // })
-        // if (this.state.userLiked){
-        //     this.setState({ 
-        //         hearts: this.state.hearts - 1,
-        //         userLiked: false
-        //     }, this.sendLiked)
-        // }
-        // if (!this.state.userLiked){
-        //     this.setState({ 
-        //         hearts: this.state.hearts + 1,
-        //         userLiked: true
-        //     }, this.sendLiked)
-        // }
     }
 
     sendLiked = () => { 
@@ -110,11 +94,12 @@ class Single extends Component {
                          <span> {this.state.hearts} likes</span>
                         </FormGroup>
                     </Form>
-                    <Form onSubmit={this.handleSumbit}>
+                    <Form onSubmit={this.handleSumbit} className="comment-form">
                         <FormGroup>
-                        {this.state.error === 'You must be logged in to comment on a post!' && <div> {this.state.error} <span className="error-x" onClick={() => this.setState({ error: '' })}> X </span> </div>}
-                        <Input type="text" name="comment" id="exampleEmail" placeholder="Leave Comment.." onChange={this.handleChange} />
-                    </FormGroup>
+                          {this.state.error === 'You must be logged in to comment on a post!' && <div> {this.state.error} <span className="error-x" onClick={() => this.setState({ error: '' })}> X </span> </div>}
+                          <Input className="comment-input" type="text" name="comment" id="exampleEmail" placeholder="Leave Comment.." onChange={this.handleChange} />
+                        </FormGroup>
+                        <button className="comment-button">+</button>
                     </Form>
                     <div className="single-comment-outer"> 
                     {this.state.comments.map(
