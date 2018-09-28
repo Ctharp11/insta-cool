@@ -37,7 +37,6 @@ class Login extends Component {
   }
 
   render() {
-    console.log(process.env.REACT_APP_FACEBOOK_APP_ID)
     return (  
       <div className="login-modal"> 
         <div className="modalz" ref={this.setWrapperRef}>

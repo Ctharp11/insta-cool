@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { post } from '../services/utils';
+import { post, getPosts } from '../services/utils';
 import Dropzone from 'react-dropzone'
 import { 
   Button,
@@ -40,7 +40,7 @@ class PhotoUpload extends Component {
         }
         post(this.state.file, bodyInfo)
         .then(res => {
-            this.props.updateStatePost()
+            this.props.updateStatePost(res.data);
             return res
         })
         .catch(err => err)

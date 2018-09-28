@@ -20,13 +20,8 @@ export const getSinglePhoto = (id) => {
 export const getUserPosts = (id) => {
     return axios.get(`/api/posts/${id}`);
 }
-export const likePost = (id, sendLike, userId) => {
-    const postData = {
-        id,
-        sendLike,
-        userId
-    }
-    return axios.post(`/api/liked/${id}`, postData)
+export const likePost = (postid, userid) => {
+    return axios.post(`/api/liked/${postid}`, { userid })
 }
 
 //facebook login

@@ -50,6 +50,12 @@ a:hover {
 .dropzone-text {
     font-size: 1.2rem;
 }
+.error-x {
+    font-weight: 300;
+}
+.error-x:hover {
+    cursor: pointer;
+}
 .login-modal {
     position: fixed;
     top: 0;

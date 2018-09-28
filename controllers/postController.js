@@ -22,37 +22,31 @@ exports.getPosts = async (req, res) => {
 
 exports.type = upload.single('file');
 
-exports.uppic = (req, res, next) => {
+exports.cloudinary = async (req, res) => {
     try {
-        res.status(200).json({status: "success"});
-        next();
+      const obj = JSON.parse(req.body.bodyInfo)
+      const cloud = await cloudinary.v2.uploader.upload(`./${req.file.path}`, (err, result) => {
+        if (err) return err
+        return result;
+      });
+      const post = new Post({
+        text: obj.text,
+        likes: obj.likes,
+        author: {
+            id: obj.author._id,
+            first_name: obj.author.facebook.first_name,
+            last_name: obj.author.facebook.last_name,
+            photo: obj.author.facebook.photo
+        },
+        file: cloud.secure_url,
+        file_id: cloud.public_id
+      });
+      await post.save()
+      res.status(200).json(post)
     }
     catch(err) {
-        res.status(500).json({error: err});
+        res.status(500).json(err);
     }
-}
-
-exports.cloudinary = (req, res) => {
-    console.log('req.user', req.user);
-    const obj = JSON.parse(req.body.bodyInfo)
-    cloudinary.v2.uploader.upload(`./${req.file.path}`, function(err, result) {
-        if (err) res.json({ error: err });
-        var post = new Post({
-            text: obj.text,
-            likes: obj.likes,
-            author: {
-                id: obj.author._id,
-                first_name: obj.author.facebook.first_name,
-                last_name: obj.author.facebook.last_name,
-                photo: obj.author.facebook.photo
-            },
-            file: result.url,
-            file_id: result.public_id
-        });
-        post.save()
-        .then(res => res)
-        .catch(err => err)
-    });
 }
 
 exports.getSingle = async (req, res) => {
@@ -77,12 +71,11 @@ exports.getUserPosts = async (req, res) => {
 
 exports.likedPost = async (req, res) => {
     try {
-        console.log(req.body)
         const likedPost = await Post.findByIdAndUpdate(
-            req.body.id, 
+            req.params.id, 
             {
-                likes: req.body.sendLike,
-                likedBy: req.body.userId
+                "$inc": { "likes": 1 },
+                "$push": { "likedBy": req.body.userid }
             },
             {new: true}
         )

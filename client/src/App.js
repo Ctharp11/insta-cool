@@ -46,10 +46,9 @@ class App extends Component {
     }
   }
 
-  updateStatePost = () => {
-    getPosts()
-    .then(res => this.setState({ posts: res.data}))
-    .catch(err => console.log(err))
+  updateStatePost = (post) => {
+    const newPostState = this.state.posts.concat(post)
+    this.setState({ posts: newPostState });
   }
 
   getUserData = () => {

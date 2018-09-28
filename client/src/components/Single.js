@@ -12,7 +12,8 @@ class Single extends Component {
             comments: [],
             comment: '',
             userLiked: false,
-            data: ''
+            data: '',
+            error: ''
         }
     }
     componentDidMount() {
@@ -21,29 +22,38 @@ class Single extends Component {
             .then(res => {
                 this.setState({ 
                     data: res.data,
-                    hearts: res.data[0].likes,
-                    userLiked: res.data[0].likedBy.includes(this.props.userInfo.userInfo._id)
+                    hearts: res.data[0].likes
+                    // userLiked: res.data[0].likedBy.includes(this.props.userInfo.userInfo._id)
                  })
             })
             .catch(err => console.log(err))
         }
     }
     heart = () => {
-        this.setState({
-            userLiked: !this.state.userLiked
-        })
-        if (this.state.userLiked){
-            this.setState({ 
-                hearts: this.state.hearts - 1,
-                userLiked: false
-            }, this.sendLiked)
+        if(this.props.loggedin) {
+            likePost(this.state.match, this.props.userInfo.userInfo._id)
+            .then(res => console.log(res), this.setState({ updated: true }))
+            .catch(err => console.log(err)) 
         }
-        if (!this.state.userLiked){
-            this.setState({ 
-                hearts: this.state.hearts + 1,
-                userLiked: true
-            }, this.sendLiked)
+        if (!this.props.loggedin) {
+            this.setState({error: 'You must be logged in to like a post!'})
         }
+        
+        // this.setState({
+        //     userLiked: !this.state.userLiked
+        // })
+        // if (this.state.userLiked){
+        //     this.setState({ 
+        //         hearts: this.state.hearts - 1,
+        //         userLiked: false
+        //     }, this.sendLiked)
+        // }
+        // if (!this.state.userLiked){
+        //     this.setState({ 
+        //         hearts: this.state.hearts + 1,
+        //         userLiked: true
+        //     }, this.sendLiked)
+        // }
     }
 
     sendLiked = () => { 
@@ -57,10 +67,16 @@ class Single extends Component {
     }
     handleSumbit = (e) => {
         e.preventDefault();
-        this.setState({ comments: [this.state.comments, this.state.comment]});
-        var newStateArray = this.state.comments.slice();
-        newStateArray.push(this.state.comment);
-        this.setState({ comments: newStateArray});
+        if (this.props.loggedin) {
+            this.setState({ comments: [this.state.comments, this.state.comment]});
+            var newStateArray = this.state.comments.slice();
+            newStateArray.push(this.state.comment);
+            this.setState({ comments: newStateArray});
+        }
+        if (!this.props.loggedin) {
+            this.setState({error: 'You must be logged in to comment on a post!'})
+        }
+        
     }
     render() {
         if (!this.state.data) {
@@ -81,16 +97,21 @@ class Single extends Component {
                     <hr />
                     <Form>
                         <FormGroup>
+                         {this.state.error === 'You must be logged in to like a post!' && <div> {this.state.error} <span className="error-x" onClick={() => this.setState({ error: '' })}> X </span> </div>}
                          <img className="single-like-size" name="heart" src={this.state.userLiked ? "/img/heart.png" : "/img/heart_empty.png"} alt="heart" onClick={this.heart} /> 
                          <span> {this.state.hearts} likes</span>
                         </FormGroup>
                     </Form>
                     <Form onSubmit={this.handleSumbit}>
                         <FormGroup>
+                        {this.state.error === 'You must be logged in to comment on a post!' && <div> {this.state.error} <span className="error-x" onClick={() => this.setState({ error: '' })}> X </span> </div>}
                         <Input type="text" name="comment" id="exampleEmail" placeholder="Leave Comment.." onChange={this.handleChange} />
                     </FormGroup>
                     </Form>
                     <div className="single-comment-outer"> 
+                    {this.state.comments.map(
+                        (comment,index) => <div key={index}> {comment} </div>)
+                    }
                       
                     </div>
                 </div> 

@@ -17,7 +17,6 @@ router.use(function(req, res, next) {
 router.get('/api', postController.getPosts);
 router.post('/api', 
     postController.type, 
-    postController.uppic,
     postController.cloudinary
 );
 router.get('/api/:id', postController.getSingle);
