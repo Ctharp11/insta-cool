@@ -69,6 +69,14 @@ a {
 /* .error-x:hover {
     cursor: pointer;
 } */
+.loader {
+    text-align: center;
+    font-size: 25px;
+    margin:2rem;
+}
+.loader-spinner {
+    height: 150px;
+}
 .login-modal {
     position: fixed;
     top: 0;

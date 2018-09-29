@@ -11,6 +11,8 @@ import {
   FormGroup, 
   Input
 } from 'reactstrap';
+// import createBrowserHistory from 'history/createBrowserHistory';
+// const history = createBrowserHistory({forceRefresh: true});
 
 class PhotoUpload extends Component {
     constructor() {
@@ -18,7 +20,8 @@ class PhotoUpload extends Component {
         this.state = {
             loading: false,
             text: '',
-            file: ''
+            file: '',
+            loading: false
         }
     }
 
@@ -33,6 +36,7 @@ class PhotoUpload extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
+        this.setState({ loading: true });
         const bodyInfo = {
             text: this.state.text.trim(),
             likes: 0,
@@ -40,11 +44,16 @@ class PhotoUpload extends Component {
         }
         post(this.state.file, bodyInfo)
         .then(res => {
-            this.props.updateStatePost(res.data);
+            this.props.updatePhotoChange()
+            this.finish()
         })
         .catch(err => err)
+        // history.push('/account');
+    }
+
+    finish = () => {
+        this.setState({ loading: false })
         this.props.toggle();
-        this.props.browser.history.push('/account');
     }
 
     render(){
@@ -53,35 +62,44 @@ class PhotoUpload extends Component {
                 <Modal isOpen={this.props.modal} toggle={this.props.toggle}>
                   <ModalHeader toggle={this.props.toggle}>Upload a Photo</ModalHeader>
                     <Form onSubmit={this.handleSubmit} encType="multipart/form-data">
-                        <ModalBody>
-                          <FormGroup>
-                            <div>
-                                <Dropzone
-                                    className="dropzone"
-                                    multiple={false}
-                                    accept="image/*"
-                                    name="file"
-                                    onDrop={this.dropZoneHandler} >
-                                    <div className="dropzone-text"> Choose photo </div>
-                                </Dropzone>
-                            </div>
-                          </FormGroup>
-
-                            {this.state.file !== '' &&
-                              <div className="preview">
-                                <img className="preview-photo" src={this.state.file[0].preview} alt="preview" />
-                                <FormGroup className="preview-text modal-text">
-                                  <Input type="textarea" name="text" id="exampleText" placeholder="Write a caption..." onChange={this.handleChange} /> </FormGroup>
+                        
+                        {this.state.loading
+                            ?
+                              <div className="loader">
+                                <img className="loader-spinner" src='img/loader.gif' alt="loading" />
+                                <div > Loading... </div>
                               </div>
-                            }
-                        </ModalBody>
-                        <ModalFooter>
-                        <Button type="submit" className="button">Submit</Button>
-                        </ModalFooter>
+                            :
+                            <div>
+                              <ModalBody>
+                                <FormGroup>
+                                <div>
+                                    <Dropzone
+                                        className="dropzone"
+                                        multiple={false}
+                                        accept="image/*"
+                                        name="file"
+                                        onDrop={this.dropZoneHandler} >
+                                        <div className="dropzone-text"> Choose photo </div>
+                                    </Dropzone>
+                                </div>
+                                </FormGroup>
+
+                                {this.state.file !== '' &&
+                                <div className="preview">
+                                    <img className="preview-photo" src={this.state.file[0].preview} alt="preview" />
+                                    <FormGroup className="preview-text modal-text">
+                                    <Input type="textarea" name="text" id="exampleText" placeholder="Write a caption..." onChange={this.handleChange} /> </FormGroup>
+                                </div>
+                                }
+                              </ModalBody>
+                              <ModalFooter>
+                                <Button type="submit" className="button">Submit</Button>
+                              </ModalFooter>
+                            </div>
+                        }
                     </Form>
                 </Modal>
-                   
-                {this.state.loading && (<div> Loading... </div>)}
             </div>
         )
     }

@@ -34,7 +34,7 @@ class App extends Component {
   }
   componentDidMount() {
      getPosts()
-    .then(res => this.setState({ posts: res.data}))
+    .then(res => this.dateSort(res.data))
     .catch(err => console.log(err))
 
     const usertoken = localStorage.getItem('token');
@@ -49,6 +49,19 @@ class App extends Component {
   updateStatePost = (post) => {
     const newPostState = this.state.posts.concat(post)
     this.setState({ posts: newPostState });
+  }
+
+  updatePhotoChange = () => {
+    getPosts()
+    .then(res => this.dateSort(res.data))
+    .catch(err => console.log(err))
+  }
+  
+  dateSort = (posts) => {
+    posts = posts.sort(function(a,b){
+      return (b.date > a.date) ? 1 : (b.date < a.date) ? -1 : 0;
+    });
+    this.setState({ posts })
   }
 
   getUserData = () => {
@@ -118,7 +131,8 @@ class App extends Component {
       toggle:this.toggle,
       userLoggOut: this.userLoggOut,
       sendStatus: this.sendStatus,
-      toggleLoginFun: this.toggleLoginFun
+      toggleLoginFun: this.toggleLoginFun,
+      updatePhotoChange: this.updatePhotoChange
     }
     const { toggleLogin } =  this.state;
     return (
@@ -151,6 +165,7 @@ class App extends Component {
               modal={this.state.modal}
               browser={this.props}
               updateStatePost={this.updateStatePost}
+              updatePhotoChange={this.updatePhotoChange}
             />
           }
           </Container> 

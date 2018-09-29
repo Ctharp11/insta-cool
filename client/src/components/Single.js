@@ -36,6 +36,7 @@ class Single extends Component {
                 likePost(this.state.match, this.props.userInfo.userInfo._id, 'liked')
                 .then(res => {
                     this.setState({ userLiked: true, hearts: this.state.hearts + 1 })
+                    this.props.updatePhotoChange()
                     return res
                 })
                 .catch(err => console.log(err)) 
@@ -45,6 +46,7 @@ class Single extends Component {
                 likePost(this.state.match, this.props.userInfo.userInfo._id, 'disliked')
                 .then(res => {
                     this.setState({ userLiked: false, hearts: this.state.hearts - 1 })
+                    this.props.updatePhotoChange()
                     return res
                 })
                 .catch(err => console.log(err)) 
@@ -73,6 +75,7 @@ class Single extends Component {
             this.setState({ comments: commentUpdate, comment: ''});
             const commentInput = document.querySelector('#comment-input');
             commentInput.value = '';
+            this.props.updatePhotoChange();
         }
         if (!this.props.loggedin) {
             this.setState({error: 'You must be logged in to comment on a post!'})

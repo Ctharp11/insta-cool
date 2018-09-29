@@ -10,7 +10,7 @@ class PhotoGrid extends Component {
         }
     }
     render() {
-        const item = this.props
+        const item = this.props;
         return(
             <div className="post"> 
               <Link to={`/p/${item._id}`}>
@@ -24,7 +24,7 @@ class PhotoGrid extends Component {
                     </span>
                     <span className="post-btn post-comments"> 
                         <img className="post-bubble" src="/img/bubble.png" alt="comments" /> 
-                        <span>  </span>
+                        <span> {item.comments.text.length}  </span>
                     </span>
                 </div>
               </Container>
