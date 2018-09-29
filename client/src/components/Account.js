@@ -47,6 +47,13 @@ class Account extends Component {
             }
             return post;
         })
+        let userId;
+        if (this.props.loggedin) {
+           userId = this.props.userInfo.userInfo._id; 
+        }
+        if (!this.props.loggedin) {
+            userId = ''; 
+        }
 
         return (
             <div>
@@ -63,7 +70,7 @@ class Account extends Component {
               <div className="account-posts">
                 <div className="main">
                 {
-                    userPostsArray.map(post => <PhotoGrid key={post._id} {...post} />)
+                    userPostsArray.map(post => <PhotoGrid key={post._id} {...post} userid={userId} />)
                 }
                  </div>
               </div>

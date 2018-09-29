@@ -11,6 +11,8 @@ class PhotoGrid extends Component {
     }
     render() {
         const item = this.props;
+        const userid = item.userid;
+        const likedBy = item.likedBy
         return(
             <div className="post"> 
               <Link to={`/p/${item._id}`}>
@@ -19,7 +21,7 @@ class PhotoGrid extends Component {
                 <div className="post-description"> {item.text} </div>
                 <div className="post-bottom"> 
                     <span className="post-btn post-like"> 
-                        <img className="post-like-size" src="/img/heart.png" alt="heart" /> 
+                        <img className="post-like-size" src={likedBy.includes(userid) ? '/img/heart.png' : '/img/heart_empty.png'} alt="heart" /> 
                         <span> {item.likes} </span>
                     </span>
                     <span className="post-btn post-comments"> 

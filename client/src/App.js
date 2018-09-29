@@ -103,7 +103,6 @@ class App extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    
   }
 
   forbiddenUrl = (Component, props) => {

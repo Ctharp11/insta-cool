@@ -70,17 +70,20 @@ class Single extends Component {
                 text: this.state.comment
             }
             commentPost(this.state.match, userInfo)
+            .then(res => {
+                this.props.updatePhotoChange();
+                console.log(res)
+                return res;
+            })
             const newComment = `${this.props.userInfo.userInfo.facebook.first_name} ${this.props.userInfo.userInfo.facebook.last_name} ${this.state.comment}`;
             const commentUpdate = this.state.comments.concat(newComment)
             this.setState({ comments: commentUpdate, comment: ''});
             const commentInput = document.querySelector('#comment-input');
             commentInput.value = '';
-            this.props.updatePhotoChange();
         }
         if (!this.props.loggedin) {
             this.setState({error: 'You must be logged in to comment on a post!'})
         }
-        
     }
     render() {
         if (!this.state.data) {

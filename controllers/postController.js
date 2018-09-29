@@ -102,13 +102,14 @@ exports.likedPost = async (req, res) => {
 exports.postComment = async (req, res) => {
     try {
        const text = `${req.body.userinfo.first_name} ${req.body.userinfo.last_name} ${req.body.userinfo.text}`;
-       const likedPost = await Post.findByIdAndUpdate(
+       const likedComment = await Post.findByIdAndUpdate(
         req.params.id, 
         {
           "$push": { "comments.text": text }
         },
         {new: true}
       )
+      res.status(200).json(likedComment)
     }
     catch(err) {
         res.status(500).json(err)
