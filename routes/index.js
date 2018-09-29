@@ -31,7 +31,8 @@ router.get('/users/secret',
 );
 
 router.post('/users/oauth/facebook', 
-    passport.authenticate('facebook', { session: false }),
+    passport.authenticate('facebook', { session: false, successRedirect: '/account',
+    failureRedirect: '/auth/facebook' }),
     userController.facebookOAuth
 );
 
