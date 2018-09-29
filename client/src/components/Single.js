@@ -23,7 +23,8 @@ class Single extends Component {
                 this.setState({ 
                     data: res.data,
                     hearts: res.data[0].likes,
-                    userLiked: this.props.loggedin ? res.data[0].likedBy.includes(this.props.userInfo.userInfo._id) : false
+                    userLiked: this.props.loggedin ? res.data[0].likedBy.includes(this.props.userInfo.userInfo._id) : false,
+                    comments: res.data[0].comments.text
                  })
             })
             .catch(err => console.log(err))
@@ -33,13 +34,19 @@ class Single extends Component {
         if(this.props.loggedin) {
             if (!this.state.userLiked) {
                 likePost(this.state.match, this.props.userInfo.userInfo._id, 'liked')
-                .then(res => console.log(res), this.setState({ userLiked: true, hearts: this.state.hearts + 1 }))
+                .then(res => {
+                    this.setState({ userLiked: true, hearts: this.state.hearts + 1 })
+                    return res
+                })
                 .catch(err => console.log(err)) 
             }
             
             if (this.state.userLiked) {
                 likePost(this.state.match, this.props.userInfo.userInfo._id, 'disliked')
-                .then(res => console.log(res), this.setState({ userLiked: false, hearts: this.state.hearts - 1 }))
+                .then(res => {
+                    this.setState({ userLiked: false, hearts: this.state.hearts - 1 })
+                    return res
+                })
                 .catch(err => console.log(err)) 
             }
         }
@@ -61,10 +68,11 @@ class Single extends Component {
                 text: this.state.comment
             }
             commentPost(this.state.match, userInfo)
-            this.setState({ comments: [this.state.comments, this.state.comment]});
-            var newStateArray = this.state.comments.slice();
-            newStateArray.push(this.state.comment);
-            this.setState({ comments: newStateArray});
+            const newComment = `${this.props.userInfo.userInfo.facebook.first_name} ${this.props.userInfo.userInfo.facebook.last_name} ${this.state.comment}`;
+            const commentUpdate = this.state.comments.concat(newComment)
+            this.setState({ comments: commentUpdate, comment: ''});
+            const commentInput = document.querySelector('#comment-input');
+            commentInput.value = '';
         }
         if (!this.props.loggedin) {
             this.setState({error: 'You must be logged in to comment on a post!'})
@@ -98,7 +106,7 @@ class Single extends Component {
                     <Form onSubmit={this.handleSumbit} className="comment-form">
                         <FormGroup>
                           {this.state.error === 'You must be logged in to comment on a post!' && <div> {this.state.error} <span className="error-x" onClick={() => this.setState({ error: '' })}> X </span> </div>}
-                          <Input className="comment-input" type="text" name="comment" id="exampleEmail" placeholder="Leave Comment.." onChange={this.handleChange} />
+                          <Input className="comment-input" type="text" name="comment" id="comment-input" placeholder="Leave Comment.." onChange={this.handleChange} />
                         </FormGroup>
                         <button className="comment-button">+</button>
                     </Form>

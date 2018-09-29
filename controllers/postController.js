@@ -72,24 +72,26 @@ exports.getUserPosts = async (req, res) => {
 exports.likedPost = async (req, res) => {
     try {
         if(req.body.likeStatus === 'liked') {
-            const likedPost = await Post.findByIdAndUpdate(
-              req.params.id, 
+            const likedPost = await Post.findOneAndUpdate(
+              {"_id": req.params.id},
               {
                 "$inc": { "likes": 1 },
                 "$push": { "likedBy": req.body.userid }
               },
               {new: true}
             )
+            res.status(200).json(likedPost)
         }
         if (req.body.likeStatus === 'disliked') {
-            const likedPost = await Post.findByIdAndUpdate(
-                req.params.id, 
+            const likedPost = await Post.findOneAndUpdate(
+                {"_id": req.params.id},
                 {
                   "$inc": { "likes": -1 },
                   "$pull": { "likedBy": req.body.userid }
                 },
                 {new: true}
               )
+              res.status(200).json(likedPost)
         }
     }
     catch(err) {
@@ -99,17 +101,14 @@ exports.likedPost = async (req, res) => {
 
 exports.postComment = async (req, res) => {
     try {
-       console.log(req.params.id, req.body); 
-
-       const text = `${req.body.first_name} ${req.body.last_name} ${req.body.text}`
+       const text = `${req.body.userinfo.first_name} ${req.body.userinfo.last_name} ${req.body.userinfo.text}`;
        const likedPost = await Post.findByIdAndUpdate(
         req.params.id, 
         {
-          "$push": { "text": text }
+          "$push": { "comments.text": text }
         },
         {new: true}
       )
-      console.log(likedPost)
     }
     catch(err) {
         res.status(500).json(err)
