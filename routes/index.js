@@ -35,4 +35,25 @@ router.post('/users/oauth/facebook',
     userController.facebookOAuth
 );
 
+router.get('/auth/facebook', passport.authenticate('facebook'), (req, res) => {
+    res.end();
+});
+
+router.get('/auth/facebook/callback', passport.authenticate('facebook', {
+    failureRedirect: `https://insta-cool.herokuapp.com/`, // tell it where to go if they couldn't log in
+    successRedirect: `https://insta-cool.herokuapp.com/account`, // tell it where to go if the log in successfully
+  }));
+
+// router.get('/auth/facebook', passport.authenticate('spotify'), (req, res) => {
+//     res.end();
+//   });
+//   // here's the URL spotify will call back to finish logging them into your site
+//   router.get('/auth/facebook/callback', passport.authenticate('spotify', {
+//     failureRedirect: `${baseUrl}/auth/failed`, // tell it where to go if they couldn't log in
+//     successRedirect: `${baseUrl}/testspotify`, // tell it where to go if the log in successfully
+//   }));
+
+
+
+
 module.exports = router;

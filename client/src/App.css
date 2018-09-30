@@ -46,6 +46,9 @@ a {
     border-radius: 5px;
     width: 10%
 }
+.comment-flex {
+    display: flex;
+}
 .dropzone {
     clear: both;
     height: 3rem;

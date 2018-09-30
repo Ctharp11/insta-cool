@@ -110,11 +110,13 @@ class Single extends Component {
                         </FormGroup>
                     </Form>
                     <Form onSubmit={this.handleSumbit} className="comment-form">
+                        <div className="comment-flex">
                         <FormGroup>
                           {this.state.error === 'You must be logged in to comment on a post!' && <div> {this.state.error} <span className="error-x" onClick={() => this.setState({ error: '' })}> X </span> </div>}
                           <Input className="comment-input" type="text" name="comment" id="comment-input" placeholder="Leave Comment.." onChange={this.handleChange} />
                         </FormGroup>
                         <button className="comment-button">+</button>
+                        </div>
                     </Form>
                     <div className="single-comment-outer"> 
                     {this.state.comments.map(
